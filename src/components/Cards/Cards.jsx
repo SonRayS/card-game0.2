@@ -40,7 +40,8 @@ function getTimerValue(startDate, endDate) {
  * pairsCount - сколько пар будет в игре
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
-export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }) {
+  let [lives, setLives] = useState(3);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
@@ -127,8 +128,26 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
-      finishGame(STATUS_LOST);
-      return;
+      if (hasCounter && lives > 1) {
+        setLives(lives - 1);
+        setTimeout(() => {
+          // Игровое поле: закрываем неверную карту обратно.
+          const nextCards = cards.map(card => {
+            const isOpen = openCardsWithoutPair.indexOf(card) > -1 ? false : card.open;
+            return {
+              ...card,
+              open: isOpen,
+            };
+          });
+
+          setCards(nextCards);
+        }, 700);
+
+        return;
+      } else {
+        finishGame(STATUS_LOST);
+        return;
+      }
     }
 
     // ... игра продолжается
@@ -155,7 +174,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     const timerId = setTimeout(() => {
       startGame();
-    }, previewSeconds * 1000);
+    }, previewSeconds * 100);
 
     return () => {
       clearTimeout(timerId);
@@ -220,6 +239,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         </div>
       ) : null}
+      {hasCounter === true && status === STATUS_IN_PROGRESS && (
+        <div className={styles.heartsContainer}>
+          <div className={styles.costHearts} id="id1">
+            {lives}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

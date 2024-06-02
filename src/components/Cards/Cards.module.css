@@ -28,14 +28,13 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: 35px;
 }
 
 .timer {
   display: flex;
-  align-items: end;
-
+  align-items: flex-end;
   color: #fff;
   font-family: StratosSkyeng;
   font-size: 64px;
@@ -69,4 +68,34 @@
   line-height: 32px;
 
   margin-bottom: -12px;
+}
+
+.heartsContainer {
+  color: white;
+  background-color: #7ac100;
+  max-width: absolute;
+  height: 64px;
+  border: 2px solid white;
+  font-variant-numeric: lining-nums proportional-nums;
+  border-radius: 12px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.costHearts {
+  background-image: url("../../../public/heart.png");
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
