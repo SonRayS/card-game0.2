@@ -49,3 +49,40 @@
 
   margin-bottom: 40px;
 }
+
+.inputName {
+  width: 276px;
+  height: 45px;
+  top: 334px;
+  left: 374px;
+  radius: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+.leaderBoard {
+  margin: 14px;
+  font-size: 19px;
+  font-family: StratosSkyeng;
+
+  &:hover {
+    color: rgb(0, 255, 0);
+  }
+
+  &::after {
+    color: rgb(255, 0, 0);
+  }
+}
+
+.container {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}

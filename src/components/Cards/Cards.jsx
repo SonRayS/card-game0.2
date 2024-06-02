@@ -73,6 +73,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
+    setLives(3);
     setStatus(STATUS_PREVIEW);
   }
 

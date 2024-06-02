@@ -92,3 +92,15 @@
   font-family: StratosSkyeng;
   padding-bottom: 25px;
 }
+
+.textGoToLeaderBoar {
+  font-size: 19px;
+  font-family: StratosSkyeng;
+  padding-bottom: 25px;
+}
+
+.leaderBoard {
+  margin: 14px;
+  font-size: 19px;
+  font-family: StratosSkyeng;
+}
