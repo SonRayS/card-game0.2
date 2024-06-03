@@ -10,31 +10,28 @@ export function SelectLevelPage() {
       <div className={styles.modal}>
         <h1 className={styles.title}>Выбери сложность</h1>
         <ul className={styles.levels}>
-          <li className={styles.level}>
-            <Link
-              onClick={() => setDifficulty(3)}
-              className={difficulty === 3 ? styles.levelLinkSelected : styles.levelLink}
-            >
-              Легкий
-            </Link>
-          </li>
-          <li className={styles.level}>
-            <Link
-              onClick={() => setDifficulty(6)}
-              className={difficulty === 6 ? styles.levelLinkSelected : styles.levelLink}
-            >
-              Cредний
-            </Link>
-          </li>
-          <li className={styles.level}>
-            <Link
-              onClick={() => setDifficulty(9)}
-              className={difficulty === 9 ? styles.levelLinkSelected : styles.levelLink}
-            >
-              Сложный
-            </Link>
-          </li>
+          <Link
+            onClick={() => setDifficulty(3)}
+            className={difficulty === 3 ? styles.levelLinkSelected : styles.levelLink}
+          >
+            <li className={styles.level}> 1 </li>
+          </Link>
+
+          <Link
+            onClick={() => setDifficulty(6)}
+            className={difficulty === 6 ? styles.levelLinkSelected : styles.levelLink}
+          >
+            <li className={styles.level}>2</li>
+          </Link>
+
+          <Link
+            onClick={() => setDifficulty(9)}
+            className={difficulty === 9 ? styles.levelLinkSelected : styles.levelLink}
+          >
+            <li className={styles.level}>3 </li>
+          </Link>
         </ul>
+
         <div className={styles.checkBox}>
           <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
           Упрощенный режим

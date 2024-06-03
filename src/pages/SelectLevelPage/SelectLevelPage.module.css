@@ -36,6 +36,10 @@
   margin-bottom: 28px;
 }
 
+.levels li:hover {
+  background-color: rgba(53, 167, 53, 0.712);
+}
+
 .level {
   display: flex;
   width: 97px;
@@ -43,16 +47,15 @@
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-
   border-radius: 12px;
   background-color: #7ac100;
 }
 
 .levelLink {
-  color: #000000;
+  color: #ffffff;
   text-align: center;
   font-family: StratosSkyeng;
-  font-size: 20px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 400;
   text-decoration: none;
@@ -62,10 +65,13 @@
   color: #000000;
   text-align: center;
   font-family: StratosSkyeng;
-  font-size: 20px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 400;
   text-decoration: none;
+  background-color: rgb(11, 136, 6);
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
 }
 
 .levelLink:visited {
