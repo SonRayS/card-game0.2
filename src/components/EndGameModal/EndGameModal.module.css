@@ -86,3 +86,21 @@
   justify-content: center;
   align-items: center;
 }
+
+.btnSave {
+  width: 246px;
+  height: 48px;
+  border-radius: 12px;
+  background: #006ac1;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: lining-nums proportional-nums;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  border: none;
+  cursor: pointer;
+}

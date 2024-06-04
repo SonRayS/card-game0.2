@@ -6,9 +6,14 @@ import celebrationImageUrl from "./images/celebration.png";
 import { useEffect, useState } from "react";
 import { addRank } from "../Api/SaveListPlayer";
 import { useNameContext } from "../context/useUser.ts";
+import { getPlayerName } from "../LocalStorage/LocalStorage.js";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
   const { name, setName } = useNameContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const isOpenMenu = () => {
+    setIsOpen(prevState => !prevState);
+  };
 
   const title = isWon ? "You win!" : "You loss!";
 
@@ -20,7 +25,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     gameDurationMinutes.toString().padStart("2", "0") / 60 + gameDurationSeconds.toString().padStart("2", "0");
 
   const [newTask, setNewTask] = useState({
-    name: "",
+    name: getPlayerName(),
     time,
   });
 
@@ -61,8 +66,6 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     [isWon, newTask.name, setName],
   );
 
-  console.log(name);
-
   return (
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
@@ -82,10 +85,19 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <div className={styles.time}>
         {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
       </div>
+      <div onClick={isOpenMenu}>
+        {!isWon && !isOpen && <Button onClick={onClick}>Start</Button>}
 
-      <Button onClick={(() => handleFromSubmit, onClick)}>Start</Button>
+        {isWon && !isOpen && (
+          <div onClick={handleFromSubmit}>
+            <button className={styles.btnSave}>Save</button>
+          </div>
+        )}
+
+        {isWon && isOpen && <Button onClick={onClick}>Start</Button>}
+      </div>
       {!name ? (
-        <Link to={`/leaderBoard`} className={styles.leaderBoard} onClick={() => handleFromSubmit}>
+        <Link to={`/leaderBoard`} className={styles.leaderBoard}>
           Go to leaderboard
         </Link>
       ) : (
