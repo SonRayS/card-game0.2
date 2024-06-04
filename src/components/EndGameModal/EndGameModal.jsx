@@ -4,17 +4,17 @@ import { Button } from "../Button/Button";
 import deadImageUrl from "./images/dead.png";
 import celebrationImageUrl from "./images/celebration.png";
 import { useState } from "react";
-import { AddRank } from "../Api/SaveListPlayer";
+import { addRank } from "../Api/SaveListPlayer";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
-  const title = isWon ? "Вы победили!" : "Вы проиграли!";
+  const title = isWon ? "You win!" : "You loss!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
 
   const imgAlt = isWon ? "celebration emodji" : "dead emodji";
 
   const time =
-    gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0");
+    gameDurationMinutes.toString().padStart("2", "0") / 60 + gameDurationSeconds.toString().padStart("2", "0");
 
   const [newTask, setNewTask] = useState({
     name: "",
@@ -28,14 +28,12 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     };
 
     if (result.name === "") {
-      result.name = "Пользователь";
+      result.name = "User";
     }
 
-    await AddRank(result)
-      .then(data => {})
-      .catch(error => {
-        console.log(error.message);
-      });
+    await addRank(result).catch(error => {
+      console.log(error.message);
+    });
   };
 
   const handleInputChange = e => {
@@ -60,14 +58,17 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           onChange={handleInputChange}
         ></input>
       ) : (
-        console.log("err")
+        console.log(/* "you loss" */)
       )}
-      <p className={styles.description}>Затраченное время:</p>
-      <div className={styles.time}>{time}</div>
+      <p className={styles.description}>Time:</p>
+      <div className={styles.time}>
+        {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
+      </div>
+
       <div className={styles.container} onClick={handleFromSubmit}>
-        <Button onClick={onClick}>Начать сначала</Button>
+        <Button onClick={onClick}>Start</Button>
         <Link to={`/leaderBoard`} className={styles.leaderBoard}>
-          Перейти к лидерборду
+          Go to leaderboard
         </Link>
       </div>
     </div>

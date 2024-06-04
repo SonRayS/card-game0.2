@@ -8,7 +8,7 @@ export function SelectLevelPage() {
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
-        <h1 className={styles.title}>Выбери сложность</h1>
+        <h1 className={styles.title}>Select Difficulty</h1>
         <ul className={styles.levels}>
           <Link
             onClick={() => setDifficulty(3)}
@@ -34,13 +34,13 @@ export function SelectLevelPage() {
 
         <div className={styles.checkBox}>
           <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
-          Упрощенный режим
+          easy mod
         </div>
         <Link to={`/game/${difficulty}/${isChecked}`} className={styles.buttonStart}>
           Старт
         </Link>
         <Link to={`/leaderBoard`} className={styles.leaderBoard}>
-          Перейти к лидерборду
+          Leaderboard
         </Link>
       </div>
     </div>

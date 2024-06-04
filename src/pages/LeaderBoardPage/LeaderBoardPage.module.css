@@ -9,7 +9,11 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-content: center;
   margin-bottom: 35px;
 }
 

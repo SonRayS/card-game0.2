@@ -3,20 +3,24 @@ import styles from "./LeaderBoardPage.module.css";
 import { LeaderBoard } from "../../components/LeaderBoard/LeaderBoard.js";
 import { getListPlayer } from "../../components/Api/GetListPlayer";
 import { useListContext } from "../../components/context/useUser.ts";
+import { useEffect } from "react";
 
 export function LeaderBoardPage() {
   const { list, setList } = useListContext();
-  getListPlayer().then(response => {
-    setList(response.leaders);
-  });
+
+  useEffect(() => {
+    getListPlayer().then(response => {
+      setList(response.leaders);
+    });
+  }, [setList]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.title}>Лидерборд</div>
+          <div className={styles.title}>Leaderboard</div>
           <Link to={`/`} className={styles.buttonStart}>
-            Начать игру
+            Start
           </Link>
         </div>
         <LeaderBoard PlayerList={list} />

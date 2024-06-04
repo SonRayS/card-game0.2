@@ -1,6 +1,6 @@
 import { listUrl } from "./GetListPlayer";
 
-export async function AddRank(result) {
+export async function addRank(result) {
   const response = await fetch(listUrl, {
     method: "POST",
     body: JSON.stringify({
