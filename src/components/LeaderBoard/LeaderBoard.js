@@ -1,6 +1,7 @@
 import style from "./LeaderBoard.module.css";
 
 export function LeaderBoard({ PlayerList }) {
+  // eslint-disable-next-line array-callback-return
   const arrPlayer = PlayerList.slice(0, 10).sort(function (a, b) {
     if (a.time > b.time) {
       return 1;

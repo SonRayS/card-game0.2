@@ -4,12 +4,15 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { ListProvider } from "./components/context/list";
+import { NameProvider } from "./components/context/name";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ListProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </ListProvider>
+    <NameProvider>
+      <ListProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </ListProvider>
+    </NameProvider>
   </React.StrictMode>,
 );

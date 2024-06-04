@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
 import deadImageUrl from "./images/dead.png";
 import celebrationImageUrl from "./images/celebration.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addRank } from "../Api/SaveListPlayer";
+import { useNameContext } from "../context/useUser.ts";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
+  const { name, setName } = useNameContext();
+
   const title = isWon ? "You win!" : "You loss!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
@@ -45,6 +48,21 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     });
   };
 
+  useEffect(
+    function setUserName() {
+      if (isWon === true && newTask.name === "") {
+        setName(true);
+      } else if (isWon === true && newTask.name !== "") {
+        setName(false);
+      } else {
+        setName(false);
+      }
+    },
+    [isWon, newTask.name, setName],
+  );
+
+  console.log(name);
+
   return (
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
@@ -66,9 +84,13 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       </div>
 
       <Button onClick={(() => handleFromSubmit, onClick)}>Start</Button>
-      <Link to={`/leaderBoard`} className={styles.leaderBoard}>
-        Go to leaderboard
-      </Link>
+      {!name ? (
+        <Link to={`/leaderBoard`} className={styles.leaderBoard} onClick={() => handleFromSubmit}>
+          Go to leaderboard
+        </Link>
+      ) : (
+        console.log(/* "you loss" */)
+      )}
     </div>
   );
 }
