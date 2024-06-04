@@ -65,9 +65,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
       </div>
 
-      <Button onClick={(() => handleFromSubmit, onClick)} disabled={isWon === true && true}>
-        Startz
-      </Button>
+      <Button onClick={(() => handleFromSubmit, onClick)}>Start</Button>
       <Link to={`/leaderBoard`} className={styles.leaderBoard}>
         Go to leaderboard
       </Link>
