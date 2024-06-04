@@ -175,7 +175,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
 
     const timerId = setTimeout(() => {
       startGame();
-    }, previewSeconds * 100);
+    }, previewSeconds * 1000);
 
     return () => {
       clearTimeout(timerId);
