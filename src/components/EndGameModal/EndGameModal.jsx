@@ -27,13 +27,13 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       ...newTask,
     };
 
-    if (result.name === "") {
-      result.name = "User";
+    if (isWon === true && newTask.name === "") {
+      alert("Введите ваш никнейм");
+    } else if (isWon === true && newTask.name !== "") {
+      await addRank(result).catch(error => {
+        console.log(error.message);
+      });
     }
-
-    await addRank(result).catch(error => {
-      console.log(error.message);
-    });
   };
 
   const handleInputChange = e => {
@@ -51,7 +51,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <h2 className={styles.title}>{title}</h2>
       {isWon ? (
         <input
-          placeholder="Name :"
+          placeholder="Name:"
           name="name"
           className={styles.inputName}
           value={newTask.name}
@@ -65,12 +65,12 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
       </div>
 
-      <div className={styles.container} onClick={handleFromSubmit}>
-        <Button onClick={onClick}>Start</Button>
-        <Link to={`/leaderBoard`} className={styles.leaderBoard}>
-          Go to leaderboard
-        </Link>
-      </div>
+      <Button onClick={(() => handleFromSubmit, onClick)} disabled={isWon === true && true}>
+        Startz
+      </Button>
+      <Link to={`/leaderBoard`} className={styles.leaderBoard}>
+        Go to leaderboard
+      </Link>
     </div>
   );
 }
