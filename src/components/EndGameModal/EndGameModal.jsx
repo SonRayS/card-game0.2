@@ -90,7 +90,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
       </div>
       <div>
-        {!isWon && !isOpen && <Button onClick={onClick}>Start</Button>}
+        {!isWon && isOpen && <Button onClick={onClick}>Start</Button>}
 
         {isWon && !isOpen && (
           <div onClick={handleFromSubmit}>
