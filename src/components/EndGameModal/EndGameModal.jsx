@@ -56,14 +56,12 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       if (isWon === true && newTask.name === "") {
         setName(true);
         setIsOpen(false);
-        return console.error("err");
       } else if (isWon === true && newTask.name !== "") {
         setName(false);
         setIsOpen(false);
       } else {
         setName(false);
         setIsOpen(true);
-        return console.error("err");
       }
     },
     [isWon, newTask.name, setName],
