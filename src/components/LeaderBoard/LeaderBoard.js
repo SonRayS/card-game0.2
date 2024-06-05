@@ -2,14 +2,14 @@ import style from "./LeaderBoard.module.css";
 
 export function LeaderBoard({ PlayerList }) {
   // eslint-disable-next-line array-callback-return
-  const arrPlayer = PlayerList.slice(0, 10).sort(function (a, b) {
+  const arrPlayer = PlayerList.sort(function (a, b) {
     if (a.time > b.time) {
       return 1;
     }
     if (a.time < b.time) {
       return -1;
     }
-  });
+  }).slice(0, 10);
 
   return (
     <div className={style.board}>

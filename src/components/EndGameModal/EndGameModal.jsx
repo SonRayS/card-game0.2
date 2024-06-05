@@ -18,8 +18,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const imgAlt = isWon ? "celebration emodji" : "dead emodji";
 
-  const time =
-    gameDurationMinutes.toString().padStart("2", "0") / 60 + gameDurationSeconds.toString().padStart("2", "0");
+  const time = Number(gameDurationMinutes / 60 + gameDurationSeconds);
 
   const [newTask, setNewTask] = useState({
     name: getPlayerName(),
