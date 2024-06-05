@@ -9,11 +9,8 @@ import { useNameContext } from "../context/useUser.ts";
 import { getPlayerName } from "../LocalStorage/LocalStorage.js";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
-  const { name, setName } = useNameContext();
+  const { setName } = useNameContext();
   const [isOpen, setIsOpen] = useState(false);
-  const isOpenMenu = () => {
-    setIsOpen(prevState => !prevState);
-  };
 
   const title = isWon ? "You win!" : "You loss!";
 
@@ -36,20 +33,22 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     };
 
     if (isWon === true && newTask.name === "") {
-      alert("Введите ваш никнейм");
+      setIsOpen(false);
+      alert("Enter your nickname");
     } else if (isWon === true && newTask.name !== "") {
       await addRank(result).catch(error => {
         console.log(error.message);
       });
+      setIsOpen(true);
     }
   };
 
   const handleInputChange = e => {
-    const { name, value } = e.target; // Извлекаем имя поля и его значение target = DOM element
+    const { name, value } = e.target;
 
     setNewTask({
-      ...newTask, // Копируем текущие данные из состояния
-      [name]: value, // Обновляем нужное поле
+      ...newTask,
+      [name]: value,
     });
   };
 
@@ -57,10 +56,15 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     function setUserName() {
       if (isWon === true && newTask.name === "") {
         setName(true);
+        setIsOpen(false);
+        return console.error("err");
       } else if (isWon === true && newTask.name !== "") {
         setName(false);
+        setIsOpen(false);
       } else {
         setName(false);
+        setIsOpen(true);
+        return console.error("err");
       }
     },
     [isWon, newTask.name, setName],
@@ -85,7 +89,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <div className={styles.time}>
         {gameDurationMinutes.toString().padStart("2", "0") + "." + gameDurationSeconds.toString().padStart("2", "0")}
       </div>
-      <div onClick={isOpenMenu}>
+      <div>
         {!isWon && !isOpen && <Button onClick={onClick}>Start</Button>}
 
         {isWon && !isOpen && (
@@ -96,13 +100,9 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
         {isWon && isOpen && <Button onClick={onClick}>Start</Button>}
       </div>
-      {!name ? (
-        <Link to={`/leaderBoard`} className={styles.leaderBoard}>
-          Go to leaderboard
-        </Link>
-      ) : (
-        console.log(/* "you loss" */)
-      )}
+      <Link to={`/leaderBoard`} className={styles.leaderBoard}>
+        Go to leaderBoard
+      </Link>
     </div>
   );
 }
