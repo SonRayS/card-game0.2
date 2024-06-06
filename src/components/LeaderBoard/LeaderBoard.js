@@ -11,6 +11,12 @@ export function LeaderBoard({ PlayerList }) {
     }
   }).slice(0, 10);
 
+  function timePlayers({ time }) {
+    let m = Math.trunc(time / 60) + "";
+    time = (time % 60) + "";
+    return m.padStart(2, 0) + ":" + time.padStart(2, 0);
+  }
+
   return (
     <div className={style.board}>
       <div className={style.board_header}>
@@ -23,7 +29,7 @@ export function LeaderBoard({ PlayerList }) {
         <div className={style.board_item} key={el.id}>
           <div className={style.position}>{index + 1}</div>
           <div className={style.name}>{el.name}</div>
-          <div className={style.time}>{el.time}</div>
+          <div className={style.time}>{timePlayers({ time: el.time })}</div>
         </div>
       ))}
     </div>

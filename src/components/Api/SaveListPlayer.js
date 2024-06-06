@@ -2,7 +2,8 @@ import { listUrl } from "./GetListPlayer";
 import { savePlayerName } from "../LocalStorage/LocalStorage";
 
 export async function addRank(result) {
-  savePlayerName({ name: result.name });
+  savePlayerName({ name: result.name ? result.name : "" });
+
   const response = await fetch(listUrl, {
     method: "POST",
     body: JSON.stringify({
