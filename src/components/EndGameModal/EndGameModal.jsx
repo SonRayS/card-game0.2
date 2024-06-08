@@ -25,22 +25,26 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     time,
   });
 
+  const givingRules = isWon && pairsCount === 9;
+
+  const conditionFalse =
+    (isWon === true && newTask.name === "" && pairsCount === 9) ||
+    (isWon === true && pairsCount === 9 && newTask.name === null);
+
+  const conditionTrue =
+    (isWon === true && newTask.name !== "" && pairsCount === 9) ||
+    (isWon === true && pairsCount === 9 && newTask.name !== null);
+
   const handleFromSubmit = async e => {
     e.preventDefault();
     const result = {
       ...newTask,
     };
 
-    if (
-      (isWon === true && newTask.name === "" && pairsCount === 9) ||
-      (isWon === true && pairsCount === 9 && newTask.name === null)
-    ) {
+    if (conditionFalse) {
       setIsOpen(false);
       alert("Enter your nickname");
-    } else if (
-      (isWon === true && newTask.name !== "" && pairsCount === 9) ||
-      (isWon === true && pairsCount === 9 && newTask.name !== null)
-    ) {
+    } else if (conditionTrue) {
       await addRank(result).catch(error => {
         console.log(error.message);
       });
@@ -59,16 +63,10 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   useEffect(
     function setUserName() {
-      if (
-        (isWon === true && newTask.name === "" && pairsCount === 9) ||
-        (isWon === true && pairsCount === 9 && newTask.name === null)
-      ) {
+      if (conditionFalse) {
         setName(true);
         setIsOpen(false);
-      } else if (
-        (isWon === true && newTask.name !== "" && pairsCount === 9) ||
-        (isWon === true && pairsCount === 9 && newTask.name !== null)
-      ) {
+      } else if (conditionTrue) {
         setName(false);
         setIsOpen(false);
       } else {
@@ -76,14 +74,14 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         setIsOpen(true);
       }
     },
-    [isWon, newTask.name, setName, pairsCount],
+    [isWon, newTask.name, setName, conditionFalse, conditionTrue],
   );
 
   return (
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
-      {isWon && pairsCount === 9 && (
+      {givingRules && (
         <input
           placeholder="Name:"
           name="name"
@@ -99,11 +97,12 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <div>
         {!isWon && isOpen && <Button onClick={onClick}>Start</Button>}
 
-        {isWon && !isOpen && pairsCount === 9 && (
-          <div onClick={handleFromSubmit}>
-            <button className={styles.btnSave}>Save</button>
-          </div>
-        )}
+        {givingRules &&
+          !isOpen(
+            <div onClick={handleFromSubmit}>
+              <button className={styles.btnSave}>Save</button>
+            </div>,
+          )}
 
         {isWon && isOpen && <Button onClick={onClick}>Start</Button>}
       </div>
