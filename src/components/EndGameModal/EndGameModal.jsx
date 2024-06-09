@@ -97,12 +97,11 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <div>
         {!isWon && isOpen && <Button onClick={onClick}>Start</Button>}
 
-        {givingRules &&
-          !isOpen(
-            <div onClick={handleFromSubmit}>
-              <button className={styles.btnSave}>Save</button>
-            </div>,
-          )}
+        {!isOpen && givingRules && (
+          <div onClick={handleFromSubmit}>
+            <button className={styles.btnSave}>Save</button>
+          </div>
+        )}
 
         {isWon && isOpen && <Button onClick={onClick}>Start</Button>}
       </div>
