@@ -27,13 +27,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const givingRules = isWon && pairsCount === 9;
 
-  const conditionFalse =
-    (isWon === true && newTask.name === "" && pairsCount === 9) ||
-    (isWon === true && pairsCount === 9 && newTask.name === null);
-
-  const conditionTrue =
-    (isWon === true && newTask.name !== "" && pairsCount === 9) ||
-    (isWon === true && pairsCount === 9 && newTask.name !== null);
+  const condition = newTask.name === "" || newTask.name === null;
 
   const handleFromSubmit = async e => {
     e.preventDefault();
@@ -41,10 +35,10 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       ...newTask,
     };
 
-    if (conditionFalse) {
+    if (givingRules && condition) {
       setIsOpen(false);
       alert("Enter your nickname");
-    } else if (conditionTrue) {
+    } else if (givingRules && !condition) {
       await addRank(result).catch(error => {
         console.log(error.message);
       });
@@ -63,10 +57,10 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   useEffect(
     function setUserName() {
-      if (conditionFalse) {
+      if (condition) {
         setName(true);
         setIsOpen(false);
-      } else if (conditionTrue) {
+      } else if (givingRules && !condition) {
         setName(false);
         setIsOpen(false);
       } else {
@@ -74,7 +68,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         setIsOpen(true);
       }
     },
-    [isWon, newTask.name, setName, conditionFalse, conditionTrue],
+    [isWon, newTask.name, setName, condition, givingRules],
   );
 
   return (
