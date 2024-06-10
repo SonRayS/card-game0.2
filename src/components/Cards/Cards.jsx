@@ -52,6 +52,40 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
 
+  // Открыть карты
+  const [cardsOpen, setCardsOpen] = useState(null);
+  // cost open card
+  const [costCardsOpen, setCostCardsOpen] = useState(1);
+  //  cost open two card
+  const [twoCardsOpen, setTwoCardsOpen] = useState(1);
+
+  const isOpenCards = () => {
+    setCostCardsOpen("");
+    setCardsOpen(true);
+    const intervalId = setInterval(() => {
+      setCardsOpen(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(intervalId);
+    };
+  };
+
+  const isOpenTwoCards = () => {
+    if (!cardsOpen) {
+      setTwoCardsOpen("");
+      const randomNumber = Math.floor(Math.random() * (pairsCount * 2));
+      cards[randomNumber].open = true;
+      const firstCard = cards[randomNumber];
+      const twoCards = cards.find(function (el) {
+        if (el.rank === firstCard.rank && el.suit === firstCard.suit && el.open !== firstCard.open) {
+          return el;
+        }
+      });
+      twoCards.open = true;
+    }
+  };
+
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
     seconds: 0,
@@ -74,6 +108,8 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setLives(3);
+    setCostCardsOpen(1);
+    setTwoCardsOpen(1);
     setStatus(STATUS_PREVIEW);
   }
 
@@ -223,7 +259,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
           <Card
             key={card.id}
             onClick={() => openCard(card)}
-            open={status !== STATUS_IN_PROGRESS ? true : card.open}
+            open={status !== STATUS_IN_PROGRESS ? true : cardsOpen || card.open}
             suit={card.suit}
             rank={card.rank}
           />
@@ -243,11 +279,15 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
       ) : null}
       {hasCounter === true && status === STATUS_IN_PROGRESS && (
         <div className={styles.heartsContainer}>
-          <div className={styles.openTwoCard}></div>
-          <div className={styles.costHearts} id="id1">
-            {lives}
-          </div>
-          <div className={styles.openCard}></div>
+          <button className={styles.openTwoCard} onClick={isOpenTwoCards} disabled={!twoCardsOpen}>
+            <p>{twoCardsOpen}</p>
+          </button>
+          <button className={styles.costHearts} id="id1">
+            <p>{lives}</p>
+          </button>
+          <button className={styles.openCards} onClick={isOpenCards} disabled={!costCardsOpen}>
+            <p>{costCardsOpen}</p>
+          </button>
         </div>
       )}
     </div>
