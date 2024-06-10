@@ -73,6 +73,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
+    setLives(3);
     setStatus(STATUS_PREVIEW);
   }
 
@@ -174,7 +175,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
 
     const timerId = setTimeout(() => {
       startGame();
-    }, previewSeconds * 100);
+    }, previewSeconds * 1000);
 
     return () => {
       clearTimeout(timerId);
@@ -214,7 +215,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
+        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Restart</Button> : null}
       </div>
 
       <div className={styles.cards}>
@@ -236,6 +237,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             gameDurationSeconds={timer.seconds}
             gameDurationMinutes={timer.minutes}
             onClick={resetGame}
+            pairsCount={pairsCount}
           />
         </div>
       ) : null}
