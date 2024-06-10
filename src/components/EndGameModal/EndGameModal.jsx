@@ -27,7 +27,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const givingRules = isWon && pairsCount === 9;
 
-  const condition = newTask.name === "" || newTask.name === null;
+  const condition = !newTask.name;
 
   const handleFromSubmit = async e => {
     e.preventDefault();

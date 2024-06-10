@@ -77,7 +77,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     setStatus(STATUS_PREVIEW);
   }
 
-  /**
+  /*
    * Обработка основного действия в игре - открытие карты.
    * После открытия карты игра может пепереходит в следующие состояния
    * - "Игрок выиграл", если на поле открыты все карты
@@ -243,9 +243,11 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
       ) : null}
       {hasCounter === true && status === STATUS_IN_PROGRESS && (
         <div className={styles.heartsContainer}>
+          <div className={styles.openTwoCard}></div>
           <div className={styles.costHearts} id="id1">
             {lives}
           </div>
+          <div className={styles.openCard}></div>
         </div>
       )}
     </div>

@@ -74,7 +74,7 @@
   color: white;
   background-color: #7ac100;
   max-width: absolute;
-  height: 64px;
+  height: 80px;
   border: 2px solid white;
   font-variant-numeric: lining-nums proportional-nums;
   border-radius: 12px;
@@ -98,4 +98,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
+}
+
+.openCard {
+  background-image: url("../../../public/search.png");
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.openTwoCard {
+  background-image: url("../../../public/poker-cards.png");
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
 }
