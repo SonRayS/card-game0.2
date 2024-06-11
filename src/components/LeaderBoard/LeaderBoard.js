@@ -20,17 +20,31 @@ export function LeaderBoard({ PlayerList }) {
   return (
     <div className={style.board}>
       <div className={style.board_header}>
-        <div className={style.position}>Позиция</div>
-        <div className={style.name}>Пользователь</div>
-        <div className={style.achievements}>Достижения</div>
-        <div className={style.time}>Время</div>
+        <div className={style.position}>
+          <img src="top-three.png" alt="" /> Position
+        </div>
+        <div className={style.name}>
+          <img src="user.png" alt="" />
+          User
+        </div>
+        <div className={style.achievements}>
+          <img src="badge.png" alt="" />
+          Achievements
+        </div>
+        <div className={style.time}>
+          <img src="clock.png" alt="" />
+          Time
+        </div>
       </div>
 
       {arrPlayer.map((el, index) => (
         <div className={style.board_item} key={el.id}>
           <div className={style.position}>{index + 1}</div>
           <div className={style.name}>{el.name}</div>
-          <div className={style.achievements}>{el.achievements}</div>
+          <div className={style.achievements}>
+            {el.achievements[0] === 1 ? <img src="evil.png" alt="" /> : null}
+            {el.achievements[1] === 2 ? <img src="cool.png" alt="" /> : null}
+          </div>
           <div className={style.time}>{timePlayers({ time: el.time })}</div>
         </div>
       ))}

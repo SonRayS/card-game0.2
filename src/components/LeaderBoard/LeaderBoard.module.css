@@ -45,6 +45,10 @@
   text-align: left;
 }
 
+.board_header div img {
+  margin: 0px 4px 0px 4px;
+}
+
 .position {
   width: 178px;
 }
@@ -59,4 +63,8 @@
 
 .achievements {
   width: 300px;
+}
+
+.achievements img {
+  margin: 0px 4px 0px 4px;
 }
