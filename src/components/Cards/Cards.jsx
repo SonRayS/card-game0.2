@@ -287,6 +287,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             gameDurationMinutes={timer.minutes}
             pairsCount={pairsCount}
             hasCounter={hasCounter}
+            lives={lives}
             onClick={resetGame}
           />
         </div>

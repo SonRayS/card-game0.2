@@ -52,6 +52,16 @@ export function LeaderBoard({ PlayerList }) {
             ) : (
               <img src="cool.png" alt="" className={style.achievements__hideImg} />
             )}
+            {el.achievements[2] === 3 ? (
+              <img src="hearts.png" alt="" />
+            ) : (
+              <img src="hearts.png" alt="" className={style.achievements__hideImg} />
+            )}
+            {el.achievements[3] === 4 ? (
+              <img src="running.png" alt="" />
+            ) : (
+              <img src="running.png" alt="" className={style.achievements__hideImg} />
+            )}
           </div>
           <div className={style.time}>{timePlayers({ time: el.time })}</div>
         </div>
