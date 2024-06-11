@@ -238,6 +238,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     }
   };
   /* ---------------------------------------- Открыть 2 карты ------------------------------------------------- */
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -284,9 +285,9 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             isWon={status === STATUS_WON}
             gameDurationSeconds={timer.seconds}
             gameDurationMinutes={timer.minutes}
-            onClick={resetGame}
             pairsCount={pairsCount}
             hasCounter={hasCounter}
+            onClick={resetGame}
           />
         </div>
       ) : null}

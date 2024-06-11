@@ -10,7 +10,6 @@ export function LeaderBoardPage() {
 
   useEffect(() => {
     getListPlayer().then(response => {
-      console.log(response);
       setList(response.leaders);
     });
   }, [setList]);

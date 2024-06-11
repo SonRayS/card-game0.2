@@ -28,8 +28,6 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   givingRules && hasCounter !== true ? achievements.push("2") : achievements.push("");
 
-  console.log(achievements);
-
   const [newTask, setNewTask] = useState({
     name: getPlayerName(),
     time,
