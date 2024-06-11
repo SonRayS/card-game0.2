@@ -68,3 +68,7 @@
 .achievements img {
   margin: 0px 4px 0px 4px;
 }
+
+.achievements__hideImg {
+  opacity: 0.3;
+}

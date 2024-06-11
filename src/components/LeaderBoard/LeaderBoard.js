@@ -42,8 +42,16 @@ export function LeaderBoard({ PlayerList }) {
           <div className={style.position}>{index + 1}</div>
           <div className={style.name}>{el.name}</div>
           <div className={style.achievements}>
-            {el.achievements[0] === 1 ? <img src="evil.png" alt="" /> : null}
-            {el.achievements[1] === 2 ? <img src="cool.png" alt="" /> : null}
+            {el.achievements[0] === 1 ? (
+              <img src="evil.png" alt="" />
+            ) : (
+              <img src="evil.png" alt="" className={style.achievements__hideImg} />
+            )}
+            {el.achievements[1] === 2 ? (
+              <img src="cool.png" alt="" />
+            ) : (
+              <img src="cool.png" alt="" className={style.achievements__hideImg} />
+            )}
           </div>
           <div className={style.time}>{timePlayers({ time: el.time })}</div>
         </div>
