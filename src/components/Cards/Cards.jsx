@@ -294,13 +294,23 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
       ) : null}
       {(hasCounter === true && status === STATUS_IN_PROGRESS) || status === STATUS_PAUSED ? (
         <div className={styles.heartsContainer}>
-          <button className={styles.openTwoCard} onClick={isOpenTwoCards} disabled={!twoCardsOpen}>
+          <button
+            className={styles.openTwoCard}
+            onClick={isOpenTwoCards}
+            disabled={!twoCardsOpen}
+            title="The ability reveals two random cards"
+          >
             <p>{twoCardsOpen}</p>
           </button>
           <button className={styles.costHearts} id="id1">
             <p>{lives}</p>
           </button>
-          <button className={styles.openCards} onClick={isOpenCards} disabled={!costCardsOpen}>
+          <button
+            className={styles.openCards}
+            onClick={isOpenCards}
+            disabled={!costCardsOpen}
+            title="The ability reveals all cards for 5 seconds"
+          >
             <p>{costCardsOpen}</p>
           </button>
         </div>
