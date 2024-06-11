@@ -292,6 +292,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
           />
         </div>
       ) : null}
+
       {(hasCounter === true && status === STATUS_IN_PROGRESS) || status === STATUS_PAUSED ? (
         <div className={styles.heartsContainer}>
           <button

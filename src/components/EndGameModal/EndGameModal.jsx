@@ -40,8 +40,6 @@ export function EndGameModal({
 
   givingRules && time < 30 ? achievements.push("4") : achievements.push("0");
 
-  console.log(time);
-
   const [newTask, setNewTask] = useState({
     name: getPlayerName(),
     time,
