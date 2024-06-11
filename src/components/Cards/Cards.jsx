@@ -226,6 +226,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
       const randomNumber = Math.floor(Math.random() * (pairsCount * 2));
       cards[randomNumber].open = true;
       const firstCard = cards[randomNumber];
+      // eslint-disable-next-line array-callback-return
       const twoCards = cards.find(function (el) {
         if (el.rank === firstCard.rank && el.suit === firstCard.suit && el.open !== firstCard.open) {
           return el;
