@@ -8,11 +8,13 @@ import { Card } from "../../components/Card/Card";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
+// Идет start
 const STATUS_WON = "STATUS_WON";
 // Идет игра: карты закрыты, игрок может их открыть
 const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
+// Идет spause
 const STATUS_PAUSED = "STATUS_PAUSED";
 
 function getTimerValue(startDate, endDate) {
