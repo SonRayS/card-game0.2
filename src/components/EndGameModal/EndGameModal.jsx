@@ -8,7 +8,7 @@ import { addRank } from "../Api/SaveListPlayer";
 import { useNameContext } from "../context/useUser.ts";
 import { getPlayerName } from "../LocalStorage/LocalStorage.js";
 
-export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, pairsCount }) {
+export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, pairsCount, hasCounter }) {
   const { setName } = useNameContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,12 +20,21 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const time = Number(gameDurationMinutes / 60 + gameDurationSeconds);
 
+  const givingRules = isWon && pairsCount === 9;
+
+  const achievements = [];
+
+  givingRules ? achievements.push("1") : achievements.push("");
+
+  givingRules && hasCounter !== true ? achievements.push("2") : achievements.push("");
+
+  console.log(achievements);
+
   const [newTask, setNewTask] = useState({
     name: getPlayerName(),
     time,
+    achievements,
   });
-
-  const givingRules = isWon && pairsCount === 9;
 
   const condition = !newTask.name;
 

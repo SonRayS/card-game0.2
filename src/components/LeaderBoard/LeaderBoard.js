@@ -22,6 +22,7 @@ export function LeaderBoard({ PlayerList }) {
       <div className={style.board_header}>
         <div className={style.position}>Позиция</div>
         <div className={style.name}>Пользователь</div>
+        <div className={style.achievements}>Достижения</div>
         <div className={style.time}>Время</div>
       </div>
 
@@ -29,6 +30,7 @@ export function LeaderBoard({ PlayerList }) {
         <div className={style.board_item} key={el.id}>
           <div className={style.position}>{index + 1}</div>
           <div className={style.name}>{el.name}</div>
+          <div className={style.achievements}>{el.achievements}</div>
           <div className={style.time}>{timePlayers({ time: el.time })}</div>
         </div>
       ))}
