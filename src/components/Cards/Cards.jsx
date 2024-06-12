@@ -8,11 +8,14 @@ import { Card } from "../../components/Card/Card";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
+// Идет start
 const STATUS_WON = "STATUS_WON";
 // Идет игра: карты закрыты, игрок может их открыть
 const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
+// Идет spause
+const STATUS_PAUSED = "STATUS_PAUSED";
 
 function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
@@ -41,17 +44,22 @@ function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }) {
+  // Кол-во хп
   let [lives, setLives] = useState(3);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
-
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
-
+  // Открыть карты
+  const [cardsOpen, setCardsOpen] = useState(null);
+  // cost open card
+  const [costCardsOpen, setCostCardsOpen] = useState(1);
+  //  cost open two card
+  const [twoCardsOpen, setTwoCardsOpen] = useState(1);
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
     seconds: 0,
@@ -74,10 +82,12 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setLives(3);
+    setCostCardsOpen(1);
+    setTwoCardsOpen(1);
     setStatus(STATUS_PREVIEW);
   }
 
-  /**
+  /*
    * Обработка основного действия в игре - открытие карты.
    * После открытия карты игра может пепереходит в следующие состояния
    * - "Игрок выиграл", если на поле открыты все карты
@@ -182,15 +192,52 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
     };
   }, [status, pairsCount, previewSeconds]);
 
-  // Обновляем значение таймера в интервале
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [gameStartDate, gameEndDate]);
+    if (status !== STATUS_PAUSED) {
+      const intervalId = setInterval(() => {
+        setTimer(t => ({
+          ...t,
+          seconds: t.seconds + 1,
+        }));
+      }, 1000);
+      return status === STATUS_WON
+        ? clearInterval(intervalId)
+        : () => {
+            clearInterval(intervalId);
+          };
+    }
+  }, [gameStartDate, gameEndDate, status, timer]);
+  /* ---------------------------------------- Открыть все карты на 5 сек ---------------------------------------- */
+  const isOpenCards = () => {
+    const currentTime = timer;
+    setStatus(STATUS_PAUSED);
+    setCostCardsOpen("");
+    setCardsOpen(true);
+    setTimeout(() => {
+      setCardsOpen(false);
+      setTimer(currentTime);
+      setStatus(STATUS_IN_PROGRESS);
+    }, 5000);
+  };
+
+  /* ---------------------------------------- Открыть все карты на 5 сек ---------------------------------------- */
+  /* ---------------------------------------- Открыть 2 карты ------------------------------------------------- */
+  const isOpenTwoCards = () => {
+    if (!cardsOpen) {
+      setTwoCardsOpen("");
+      const randomNumber = Math.floor(Math.random() * (pairsCount * 2));
+      cards[randomNumber].open = true;
+      const firstCard = cards[randomNumber];
+      // eslint-disable-next-line array-callback-return
+      const twoCards = cards.find(function (el) {
+        if (el.rank === firstCard.rank && el.suit === firstCard.suit && el.open !== firstCard.open) {
+          return el;
+        }
+      });
+      twoCards.open = true;
+    }
+  };
+  /* ---------------------------------------- Открыть 2 карты ------------------------------------------------- */
 
   return (
     <div className={styles.container}>
@@ -215,7 +262,9 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Restart</Button> : null}
+        {status === STATUS_IN_PROGRESS || status === STATUS_PAUSED ? (
+          <Button onClick={resetGame}>Restart</Button>
+        ) : null}
       </div>
 
       <div className={styles.cards}>
@@ -223,7 +272,7 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
           <Card
             key={card.id}
             onClick={() => openCard(card)}
-            open={status !== STATUS_IN_PROGRESS ? true : card.open}
+            open={status !== STATUS_IN_PROGRESS ? true : cardsOpen || card.open}
             suit={card.suit}
             rank={card.rank}
           />
@@ -236,18 +285,37 @@ export function Cards({ pairsCount = 3, hasCounter = false, previewSeconds = 5 }
             isWon={status === STATUS_WON}
             gameDurationSeconds={timer.seconds}
             gameDurationMinutes={timer.minutes}
-            onClick={resetGame}
             pairsCount={pairsCount}
+            hasCounter={hasCounter}
+            lives={lives}
+            onClick={resetGame}
           />
         </div>
       ) : null}
-      {hasCounter === true && status === STATUS_IN_PROGRESS && (
+
+      {(hasCounter === true && status === STATUS_IN_PROGRESS) || status === STATUS_PAUSED ? (
         <div className={styles.heartsContainer}>
-          <div className={styles.costHearts} id="id1">
-            {lives}
-          </div>
+          <button
+            className={styles.openTwoCard}
+            onClick={isOpenTwoCards}
+            disabled={!twoCardsOpen}
+            title="The ability reveals two random cards"
+          >
+            <p>{twoCardsOpen}</p>
+          </button>
+          <button className={styles.costHearts} id="id1">
+            <p>{lives}</p>
+          </button>
+          <button
+            className={styles.openCards}
+            onClick={isOpenCards}
+            disabled={!costCardsOpen}
+            title="The ability reveals all cards for 5 seconds"
+          >
+            <p>{costCardsOpen}</p>
+          </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

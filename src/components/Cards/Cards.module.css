@@ -74,7 +74,7 @@
   color: white;
   background-color: #7ac100;
   max-width: absolute;
-  height: 64px;
+  height: 120px;
   border: 2px solid white;
   font-variant-numeric: lining-nums proportional-nums;
   border-radius: 12px;
@@ -91,11 +91,60 @@
   background-image: url("../../../public/heart.png");
   width: 64px;
   height: 64px;
-  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  border: none;
+}
+
+.openCards {
+  background-image: url("../../../public/search.png");
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.openTwoCard {
+  background-image: url("../../../public/poker-cards.png");
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.openCards:hover,
+.openTwoCard:hover {
+  border: 3px solid#d9ff00c0;
+  border-radius: 8px;
+  align-items: none;
+  transform: 4s;
+}
+
+.heartsContainer button {
+  border: none;
+  background-color: rgb(172, 82, 82, 0);
+}
+
+.heartsContainer p {
+  font-size: 28px;
   color: rgb(255, 255, 255);
   font-variant-numeric: lining-nums proportional-nums;
   font-family: StratosSkyeng;
   display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
   justify-content: center;
   align-items: center;
+  -webkit-text-stroke: 1px #004980c0; /* Толщина и цвет обводки */
 }

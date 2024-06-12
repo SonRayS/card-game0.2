@@ -9,6 +9,7 @@ export async function addRank(result) {
     body: JSON.stringify({
       name: result.name,
       time: result.time,
+      achievements: result.achievements,
     }),
   });
 
