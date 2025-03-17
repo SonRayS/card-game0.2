@@ -1,46 +1,46 @@
-# MVP Карточная игра "Мемо"
+# MVP Card Game "Memo"
 
-В этом репозитории реализован MVP карточкой игры "Мемо" по [тех.заданию](./docs/mvp-spec.md)
+This repository implements the MVP card game "Memo" according to [spec](./docs/mvp-spec.md)
 
-Проект задеплоен на gh pages:
+The project is deprecated on gh pages:
 https://skypro-web-developer.github.io/react-memo/
 
-## Разработка
+## Development
 
-Проект реализован на основе шаблона [Create React App](https://github.com/facebook/create-react-app).
+The project is implemented based on the [Create React App](https://github.com/facebook/create-react-app) template.
 
-### Как разрабатывать
+### How to develop
 
-- Установите зависимости командой `npm install`
-- Запустите dev сервер `npm start`
-- Откройте адрес в браузере
+- Install dependencies with `npm install` command
+- Start dev server with `npm start`
+- Open the address in a browser
 
-### Стек и инструменты
+### Stack and tools
 
-Для стилей в коде используются css modules.
+The code uses css modules for styles.
 
-Настроены eslint и prettier. Корректность кода проверяется автоматически перед каждым коммитом с помощью lefthook (аналог husky). Закомитить код, который не проходит проверку eslint не получится.
+The eslint and prettier are configured. Code correctness is checked automatically before each commit using lefthook (analogue of husky). You can't commit code that doesn't pass eslint check.
 
-### Доступные команды
+### Available commands
 
 #### `npm start`
 
-Запускает приложение в режиме разработки.
+Starts the application in development mode.
 
-Откройте [http://localhost:3000](http://localhost:3000) чтобы посмотреть его в браузере.
+Open [http://localhost:3000](http://localhost:3000) to view it in a browser.
 
 #### `npm run build`
 
-Собирает оптимизированный и минифицированный продакшен билд приложения в папку `build`.
-После сборке, приложение готово к деплою.
+Builds an optimised and minified production build of the application into the `build` folder.
+Once built, the application is ready to be deployed.
 
 #### `npm run deploy`
 
-Деплоит приложение в github pages. По сути, запускает сборку и коммитит билд в ветку gh-pages.
+Deploys the application to github pages. Essentially runs the build and commits the build to the gh-pages branch.
 
-(!) github pages должен быть включен в настройках репозитория и настроен на ветку gh-pages
+(!) github pages must be enabled in the repository settings and configured for the gh-pages branch
 
 #### `npm run lint`
 
-Запускает eslint проверку кода, эта же команда запускается перед каждым коммитом.
-Если не получается закоммитить, попробуйте запустить эту команду и исправить все ошибки и предупреждения.
+Runs eslint code verification, the same command is run before each commit.
+If you can't commit, try running this command and fix all errors and warnings.
